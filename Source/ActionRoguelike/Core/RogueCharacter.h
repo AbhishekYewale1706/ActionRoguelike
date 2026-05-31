@@ -43,6 +43,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category="Input")
 	TObjectPtr<UInputAction> InputPrimaryAttack;
 	
+	UPROPERTY(EditDefaultsOnly,Category="Input")
+	TObjectPtr<UInputAction> InputJump;
+	
 	UPROPERTY(VisibleAnywhere,Category="Camera")
 	TObjectPtr<UCameraComponent> CameraComponent;
 	
@@ -58,6 +61,7 @@ protected:
 	void Look(const FInputActionValue& InputValue);
 	void PrimaryAttack();
 	void PrimaryAttackTimerElapsed();
+	
 
 public:
 	virtual void Tick(float DeltaTime) override;

@@ -41,6 +41,8 @@ void ARogueCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Input->BindAction(InputMove,ETriggerEvent::Triggered,this,&ARogueCharacter::Move);
 	Input->BindAction(InputLook,ETriggerEvent::Triggered,this,&ARogueCharacter::Look);
 	Input->BindAction(InputPrimaryAttack,ETriggerEvent::Triggered,this,&ARogueCharacter::PrimaryAttack);
+	Input->BindAction(InputJump,ETriggerEvent::Triggered,this,&ARogueCharacter::Jump);
+	Input->BindAction(InputJump,ETriggerEvent::Completed,this,&ARogueCharacter::StopJumping);
 	
 }
 
