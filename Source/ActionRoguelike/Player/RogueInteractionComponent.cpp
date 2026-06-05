@@ -13,10 +13,9 @@ URogueInteractionComponent::URogueInteractionComponent()
 
 void URogueInteractionComponent::InteractBestActor()
 {
-	IRogueInteractionInterface* RefInteractionInterface=Cast<IRogueInteractionInterface>(SelectedActor);
-	if (RefInteractionInterface)
+	if (SelectedActor)
 	{
-		RefInteractionInterface->OnInteraction();
+		IRogueInteractionInterface::Execute_OnInteraction(SelectedActor);
 	}
 }
 

@@ -17,8 +17,9 @@ ARogueItemChest::ARogueItemChest()
 	ChildMeshComponent->SetupAttachment(BaseMeshComponent);
 }
 
-void ARogueItemChest::OnInteraction()
+void ARogueItemChest::OnInteraction_Implementation()
 {
+	//IRougeInteractionInterface function
 	SetActorTickEnabled(true);
 }
 
@@ -32,7 +33,9 @@ void ARogueItemChest::Tick(float DeltaTime)
 	
 	if (FMath::IsNearlyEqual(CurrentPitch,TargetPitch))
 	{
+		//Chest Animation Completed
 		SetActorTickEnabled(false);
+		 ChestAnimationCompleted();
 	}
 	
 }

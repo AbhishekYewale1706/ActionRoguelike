@@ -16,5 +16,6 @@ class ACTIONROGUELIKE_API IRogueInteractionInterface
 	GENERATED_BODY()
 
 public:
-	virtual  void OnInteraction() = 0;
+	UFUNCTION(BlueprintNativeEvent)
+	void OnInteraction();
 };

@@ -28,10 +28,15 @@ protected:
 	
 	UPROPERTY(VisibleDefaultsOnly,Category="Animation")
 	float CurrentPitch=0.0f;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void ChestAnimationCompleted();
 
 public:
+	
+	virtual void OnInteraction_Implementation() override;
+	
 	ARogueItemChest();
 	virtual void Tick(float DeltaTime) override;
-	virtual void OnInteraction() override;
 	
 };
