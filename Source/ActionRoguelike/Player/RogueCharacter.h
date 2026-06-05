@@ -4,6 +4,8 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class ARogueTeleportProjectile;
+class ARogueBlackHoleProjectile;
 class UNiagaraSystem;
 class ARogueProjectileMagic;
 struct FInputActionValue;
@@ -34,6 +36,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category="PrimaryAttack")
 	TSubclassOf<ARogueProjectileMagic> ProjectileMagicClass;
 	
+	UPROPERTY(EditDefaultsOnly,Category="PrimaryAttack")
+	TSubclassOf<ARogueBlackHoleProjectile> ProjectileBlackHoleClass;
+	
+	UPROPERTY(EditDefaultsOnly,Category="PrimaryAttack")
+	TSubclassOf<ARogueTeleportProjectile> ProjectileTeleportClass;
+	
 	UPROPERTY(EditDefaultsOnly,Category="Input")
 	TObjectPtr<UInputAction> InputMove;
 	
@@ -45,6 +53,12 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly,Category="Input")
 	TObjectPtr<UInputAction> InputJump;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Input")
+	TObjectPtr<UInputAction> InputBlackHoleAbility;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Input")
+	TObjectPtr<UInputAction> InputTeleportAbility;
 	
 	UPROPERTY(VisibleAnywhere,Category="Camera")
 	TObjectPtr<UCameraComponent> CameraComponent;
@@ -61,8 +75,12 @@ protected:
 	void Look(const FInputActionValue& InputValue);
 	void PrimaryAttack();
 	void PrimaryAttackTimerElapsed();
-	
 
+	void BlackHoleAbility();
+	void BlackHoleTimerElapsed();
+    
+	void TeleportAbility();
+	void TeleportTimerElapsed();
 public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
