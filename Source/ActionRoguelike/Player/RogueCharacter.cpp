@@ -1,10 +1,12 @@
 ﻿#include "RogueCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "ActionRoguelike/ActionSystem/RogueActionSystemComponent.h"
 #include "ActionRoguelike/Projectiles/RogueBlackHoleProjectile.h"
 #include "ActionRoguelike/Projectiles/RogueProjectileMagic.h"
 #include "ActionRoguelike/Projectiles/RogueTeleportProjectile.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -20,15 +22,23 @@ ARogueCharacter::ARogueCharacter()
 	CameraComponent=CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	
+	ActionSystem=CreateDefaultSubobject<URogueActionSystemComponent>(TEXT("ActionSystem"));
+	
 	PrimaryAttackSocketName="Muzzle_01";
 	
 }
+
+void ARogueCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	ActionSystem->OnHealthChanged.AddDynamic(this,&ARogueCharacter::OnHealthChanged);
+}
+
 
 void ARogueCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 }
-
 
 
 void ARogueCharacter::Tick(float DeltaTime)
@@ -48,6 +58,7 @@ void ARogueCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	Input->BindAction(InputBlackHoleAbility,ETriggerEvent::Triggered,this,&ARogueCharacter::BlackHoleAbility);
 	Input->BindAction(InputTeleportAbility,ETriggerEvent::Triggered,this,&ARogueCharacter::TeleportAbility);
 }
+
 
 void ARogueCharacter::Move(const FInputActionValue& InputValue)
 {
@@ -134,4 +145,23 @@ void ARogueCharacter::TeleportTimerElapsed()
 	AActor* NewProjectile=GetWorld()->SpawnActor<AActor>(ProjectileTeleportClass,SpawnLocation,SpawnRotation,SpawnParam);
 	MoveIgnoreActorAdd(NewProjectile);
 	
+}
+
+
+float ARogueCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,
+                                  AController* EventInstigator, AActor* DamageCauser)
+{
+	float AmountDamage=Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	ActionSystem->ApplyHealthChange(-AmountDamage);
+	return AmountDamage;
+}
+
+void ARogueCharacter::OnHealthChanged(float NewHealth, float OldHealth)
+{
+	if (FMath::IsNearlyZero(NewHealth))
+	{
+		DisableInput(nullptr);
+		GetCharacterMovement()->StopMovementImmediately();
+		PlayAnimMontage(PlayerDeadAnimMontage);
+	}
 }

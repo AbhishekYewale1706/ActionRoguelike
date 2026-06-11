@@ -76,6 +76,8 @@
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Private/PhysicsEngine/RadialForceComponent.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Engine/Public/WorldPartition/ActorInstanceGuids.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Epic Games/UE_5.6/Engine/Source/Runtime/Solaris/uLangCore/Private/uLang/Common/Text/Unicode.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ActionRoguelike/ActionSystem/RogueActionSystemComponent.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/ActionRoguelike/ActionSystem/RogueActionSystemComponent.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ActionRoguelike/Core/RogueGameModeBase.cpp" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ActionRoguelike/Core/RogueGameModeBase.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Source/ActionRoguelike/Interface/RogueInteractionInterface.cpp" root0="FORCE_HIGHLIGHTING" />
@@ -235,6 +237,13 @@
       <workItem from="1780565953811" duration="5544000" />
       <workItem from="1780635668864" duration="1467000" />
       <workItem from="1780638091192" duration="24107000" />
+      <workItem from="1780743458420" duration="28000" />
+      <workItem from="1780745306997" duration="10000" />
+      <workItem from="1780745573195" duration="894000" />
+      <workItem from="1780821220143" duration="113000" />
+      <workItem from="1780822430643" duration="215000" />
+      <workItem from="1780982930162" duration="4758000" />
+      <workItem from="1781154200807" duration="5665000" />
     </task>
     <servers />
   </component>

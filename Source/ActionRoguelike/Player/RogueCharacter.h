@@ -4,6 +4,7 @@
 #include "GameFramework/Character.h"
 #include "RogueCharacter.generated.h"
 
+class URogueActionSystemComponent;
 class ARogueTeleportProjectile;
 class ARogueBlackHoleProjectile;
 class UNiagaraSystem;
@@ -32,6 +33,9 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly,Category="PrimaryAttack")
 	TObjectPtr<UAnimMontage> PrimaryAttackAnimMontage;
+	
+	UPROPERTY(EditDefaultsOnly,Category="Dead")
+	TObjectPtr<UAnimMontage> PlayerDeadAnimMontage;
 	
 	UPROPERTY(EditDefaultsOnly,Category="PrimaryAttack")
 	TSubclassOf<ARogueProjectileMagic> ProjectileMagicClass;
@@ -66,6 +70,9 @@ protected:
 	UPROPERTY(VisibleAnywhere,Category="Camera")
 	TObjectPtr<USpringArmComponent> SpringArmComponent;
 	
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Components")
+	TObjectPtr<URogueActionSystemComponent> ActionSystem;
+	
 	UPROPERTY(VisibleAnywhere,Category="PrimaryAttack")
 	FName PrimaryAttackSocketName;
 	
@@ -81,7 +88,14 @@ protected:
     
 	void TeleportAbility();
 	void TeleportTimerElapsed();
+	
+	UFUNCTION()
+	void OnHealthChanged(float NewHealth, float OldHealth);
+	
 public:
+	
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void PostInitializeComponents() override;
 };
